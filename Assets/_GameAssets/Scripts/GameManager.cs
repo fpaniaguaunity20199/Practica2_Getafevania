@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int numeroVidas;
     [SerializeField] float vidaMaxima = 1;
     [SerializeField] float vida;
+    [SerializeField] int puntuacion;
 
     public int GetNumeroVidasMaximo()
     {
@@ -35,5 +36,10 @@ public class GameManager : MonoBehaviour
             QuitarVida(resto*-1);
         }
         GetComponent<UIManager>().ActualizarVida(numeroVidas, vida);
+    }
+    public void IncrementarPuntuacion(int incrementoPuntuacion)
+    {
+        puntuacion = puntuacion + incrementoPuntuacion;
+        GetComponent<UIManager>().ActualizarPuntuacion(puntuacion);
     }
 }

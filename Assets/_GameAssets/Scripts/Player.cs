@@ -30,4 +30,8 @@ public class Player : MonoBehaviour
     {
         gm.QuitarVida(danyo);
     }
+    private void Disparar()
+    {
+
+    }
 }

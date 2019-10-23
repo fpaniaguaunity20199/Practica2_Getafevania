@@ -9,8 +9,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject panelVidas;
     [SerializeField] GameObject prefabCorazon;
     private GameManager gm;
+    private Text textoPuntuacion;//Puntuación
     void Start()
     {
+        textoPuntuacion = GameObject.Find("TextPuntuacion").GetComponent<Text>();//Puntuación
+
         gm = GetComponent<GameManager>();
         int numeroVidas = gm.GetNumeroVidasMaximo();
         for(int i = 0; i < numeroVidas; i++)
@@ -24,5 +27,9 @@ public class UIManager : MonoBehaviour
         GameObject ultimoCorazon = corazones[numeroVidasActuales-1];
         Image imagenUltimoCorazon = ultimoCorazon.GetComponent<Image>();
         imagenUltimoCorazon.fillAmount=vidaActual;
+    }
+    public void ActualizarPuntuacion(int puntuacion)
+    {
+        textoPuntuacion.text = puntuacion.ToString();//Puntuación
     }
 }
