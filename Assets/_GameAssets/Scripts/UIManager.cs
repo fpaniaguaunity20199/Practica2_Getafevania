@@ -18,4 +18,11 @@ public class UIManager : MonoBehaviour
             Instantiate(prefabCorazon, panelVidas.transform);
         }
     }
+    public void ActualizarVida(int numeroVidasActuales, float vidaActual)
+    {
+        GameObject[] corazones = GameObject.FindGameObjectsWithTag("Corazon");
+        GameObject ultimoCorazon = corazones[numeroVidasActuales-1];
+        Image imagenUltimoCorazon = ultimoCorazon.GetComponent<Image>();
+        imagenUltimoCorazon.fillAmount=vidaActual;
+    }
 }

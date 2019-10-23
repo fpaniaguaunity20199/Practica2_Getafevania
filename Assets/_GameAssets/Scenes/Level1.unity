@@ -218,8 +218,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numeroVidasMaximo: 3
   numeroVidas: 3
-  vidaMaxima: 100
-  vida: 100
+  vidaMaxima: 1
+  vida: 1
 --- !u!4 &167486326
 Transform:
   m_ObjectHideFlags: 0
@@ -609,7 +609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e21cae60401913240aa1147239bd899b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuerza: 300
+  fuerza: 200
+  danyo: 1.2
 --- !u!1 &1076073995
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +895,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055223815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.22, y: -2.35, z: 0}
+  m_LocalPosition: {x: 5.41, y: -2.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
