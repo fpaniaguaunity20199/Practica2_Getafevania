@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movedor : MonoBehaviour
+public class MovedorSinRotacion : MonoBehaviour
 {
     [SerializeField] Transform origen;
     [SerializeField] Transform destino;
@@ -10,10 +10,6 @@ public class Movedor : MonoBehaviour
     [SerializeField] int direccion = 1;
     private SpriteRenderer sr;
     private float porcentaje = 0;
-    private void Start()
-    {
-        sr = GetComponent<SpriteRenderer>();
-    }
     void Update()
     {
         porcentaje += Time.deltaTime * velocidad * direccion;
@@ -25,7 +21,6 @@ public class Movedor : MonoBehaviour
         if (porcentaje >= 1 || porcentaje<=0)
         {
             direccion *= -1;
-            sr.flipX = !sr.flipX;
             porcentaje = Mathf.Clamp(porcentaje, 0, 1f);
         }
     }

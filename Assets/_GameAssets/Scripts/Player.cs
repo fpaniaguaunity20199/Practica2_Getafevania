@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject prefabProyectil;
     [SerializeField] Transform puntoDisparo;
     [SerializeField] float fuerzaDisparo;
+    [SerializeField] float jumpForce;
+    [SerializeField] Transform puntoDeteccion;
+    [SerializeField] LayerMask layerSuelo;
+    [SerializeField] PhysicsMaterial2D pm2d;
     private AudioSource[] audios;
     private float x, y;
     private Rigidbody2D rb;
@@ -15,6 +19,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private const int AUDIO_SHOT = 0;
     private const int AUDIO_JUMP = 1;
+    //private bool inFloor = false;
 
     void Start()
     {
@@ -29,10 +34,12 @@ public class Player : MonoBehaviour
         y = Input.GetAxis("Vertical");
         if (x > 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        } else if (x < 0)
+            //transform.rotation = Quaternion.Euler(0, 0, 0);
+        } else if (Mathf.Abs(x) < 0.5)
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            x = 0;
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            //transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         if (Input.GetButtonDown("Fire1"))
         {
@@ -48,11 +55,11 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(x) > 0)
         {
             animator.SetBool("walking", true);
-            rb.velocity = new Vector2(x * speed, 0);
+            rb.velocity = new Vector2(x * speed, rb.velocity.y);
         } else
         {
             animator.SetBool("walking", false);
-            rb.velocity = new Vector2(0, 0);
+            //rb.velocity = new Vector2(0, 0);
         }
         
     }
@@ -71,6 +78,26 @@ public class Player : MonoBehaviour
     }
     private void Saltar()
     {
-        audios[AUDIO_JUMP].Play();
+        if (InFloor())
+        {
+            //rb.AddForce(Vector2.up * jumpForce);//Alternativa mediante impulso
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            audios[AUDIO_JUMP].Play();
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        InFloor();
+    }
+    private bool InFloor()
+    {
+        Collider2D c2d = Physics2D.OverlapBox(puntoDeteccion.position, new Vector2(0.605f, 0.1f), 0, layerSuelo);
+        if (c2d != null)
+        {
+            GetComponent<CapsuleCollider2D>().sharedMaterial = null;
+            return true;
+        }
+        GetComponent<CapsuleCollider2D>().sharedMaterial = pm2d;
+        return false;
     }
 }
