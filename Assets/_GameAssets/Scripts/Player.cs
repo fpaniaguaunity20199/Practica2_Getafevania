@@ -19,28 +19,35 @@ public class Player : MonoBehaviour
     private Animator animator;
     private const int AUDIO_SHOT = 0;
     private const int AUDIO_JUMP = 1;
+    private Vector2 posInicial;
     //private bool inFloor = false;
 
     void Start()
     {
+        posInicial = transform.position;
         rb = GetComponent<Rigidbody2D>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         animator = GetComponent<Animator>();
         audios = GetComponents<AudioSource>();
+        IniciarPosicion();
     }
+
+    private static int Calcular(int x, int y)
+    {
+        int z = x + y;
+        z = z * 2;
+        return z;
+    }
+
+    private void IniciarPosicion()
+    {
+        transform.position = gm.GetStoredPlayerPosition(posInicial);
+    }
+
     private void Update()
     {
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
-        if (x > 0)
-        {
-            //transform.rotation = Quaternion.Euler(0, 0, 0);
-        } else if (Mathf.Abs(x) < 0.5)
-        {
-            x = 0;
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            //transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
         if (Input.GetButtonDown("Fire1"))
         {
             Disparar();
@@ -65,7 +72,12 @@ public class Player : MonoBehaviour
     }
     public void RecibirDanyo(float danyo)
     {
-        gm.QuitarVida(danyo);
+        if (gm.QuitarVida(danyo))
+        {
+            //Ha perdido todas las vidas
+            gm.ResetGame();
+            IniciarPosicion();
+        }
     }
     private void Disparar()
     {
@@ -99,5 +111,19 @@ public class Player : MonoBehaviour
         }
         GetComponent<CapsuleCollider2D>().sharedMaterial = pm2d;
         return false;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Adhesivo"))
+        {
+            transform.SetParent(collision.gameObject.transform);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Adhesivo"))
+        {
+            transform.SetParent(null);
+        }
     }
 }

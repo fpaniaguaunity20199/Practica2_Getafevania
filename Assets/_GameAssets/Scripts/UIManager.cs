@@ -28,6 +28,14 @@ public class UIManager : MonoBehaviour
         Image imagenUltimoCorazon = ultimoCorazon.GetComponent<Image>();
         imagenUltimoCorazon.fillAmount=vidaActual;
     }
+    //Volvemos a repintar los corazones al 100%
+    public void ResetVidas() {
+        GameObject[] corazones = GameObject.FindGameObjectsWithTag("Corazon");
+        foreach(GameObject corazon in corazones)
+        {
+            corazon.GetComponent<Image>().fillAmount = 1;
+        }
+    }
     public void ActualizarPuntuacion(int puntuacion)
     {
         textoPuntuacion.text = puntuacion.ToString();//Puntuación
