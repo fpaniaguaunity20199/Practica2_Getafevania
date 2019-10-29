@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] Transform puntoDeteccion;
     [SerializeField] LayerMask layerSuelo;
     [SerializeField] PhysicsMaterial2D pm2d;
+    [Header("Time to get player control after damage")]
+    [SerializeField] float timeToRestoreControl;
     private AudioSource[] audios;
     private float x, y;
     private Rigidbody2D rb;
@@ -20,7 +22,7 @@ public class Player : MonoBehaviour
     private const int AUDIO_SHOT = 0;
     private const int AUDIO_JUMP = 1;
     private Vector2 posInicial;
-    //private bool inFloor = false;
+    private bool controlEnabled = true;
 
     void Start()
     {
@@ -31,19 +33,6 @@ public class Player : MonoBehaviour
         audios = GetComponents<AudioSource>();
         IniciarPosicion();
     }
-
-    private static int Calcular(int x, int y)
-    {
-        int z = x + y;
-        z = z * 2;
-        return z;
-    }
-
-    private void IniciarPosicion()
-    {
-        transform.position = gm.GetStoredPlayerPosition(posInicial);
-    }
-
     private void Update()
     {
         x = Input.GetAxis("Horizontal");
@@ -59,6 +48,11 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
+        //Si no tenemos el control, nos salimos
+        if (!controlEnabled)
+        {
+            return;
+        }
         if (Mathf.Abs(x) > 0)
         {
             animator.SetBool("walking", true);
@@ -66,9 +60,14 @@ public class Player : MonoBehaviour
         } else
         {
             animator.SetBool("walking", false);
-            //rb.velocity = new Vector2(0, 0);
         }
-        
+        if (x > 0)
+        {
+            transform.localScale = new Vector2(1,1);
+        } else if (x < 0)
+        {
+            transform.localScale = new Vector2(-1,1);
+        }
     }
     public void RecibirDanyo(float danyo)
     {
@@ -76,6 +75,7 @@ public class Player : MonoBehaviour
         {
             //Ha perdido todas las vidas
             gm.ResetGame();
+            rb.velocity = Vector2.zero;
             IniciarPosicion();
         }
     }
@@ -85,7 +85,8 @@ public class Player : MonoBehaviour
             prefabProyectil, 
             puntoDisparo.position, 
             puntoDisparo.rotation);
-        proyectil.GetComponent<Rigidbody2D>().AddForce(puntoDisparo.right * fuerzaDisparo);
+        Vector2 direction = new Vector2(transform.localScale.x, 0.45f);
+        proyectil.GetComponent<Rigidbody2D>().AddForce(direction * fuerzaDisparo);
         audios[AUDIO_SHOT].Play();
     }
     private void Saltar()
@@ -97,10 +98,6 @@ public class Player : MonoBehaviour
             audios[AUDIO_JUMP].Play();
         }
     }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        InFloor();
-    }
     private bool InFloor()
     {
         Collider2D c2d = Physics2D.OverlapBox(puntoDeteccion.position, new Vector2(0.605f, 0.1f), 0, layerSuelo);
@@ -111,6 +108,24 @@ public class Player : MonoBehaviour
         }
         GetComponent<CapsuleCollider2D>().sharedMaterial = pm2d;
         return false;
+    }
+    private void IniciarPosicion()
+    {
+        transform.position = gm.GetStoredPlayerPosition(posInicial);
+    }
+    public void DisableControl()
+    {
+        controlEnabled = false;
+        Invoke("EnableControl", timeToRestoreControl);
+    }
+    private void EnableControl()
+    {
+        controlEnabled = true;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        InFloor();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

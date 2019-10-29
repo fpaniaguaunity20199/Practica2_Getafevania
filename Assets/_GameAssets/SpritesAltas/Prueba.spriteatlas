@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Prueba
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: a83e316f95f29f442a700047b25b89a6, type: 3}
+    totalSpriteSurfaceArea: 7680
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c30355004f041f549a1c4e32f3217ddf, type: 3}
+  - {fileID: 21300000, guid: 408a8d9048c925c439a61ee543ac71a9, type: 3}
+  - {fileID: 21300000, guid: de5f88e1d06b0e045b7da2b4b5d29b63, type: 3}
+  - {fileID: 21300000, guid: 76d92c2269a7362448ad54aefaa9b426, type: 3}
+  - {fileID: 21300000, guid: 90883aa2713fa0845844969700a79e0b, type: 3}
+  - {fileID: 21300000, guid: c7f0e7c26e3c2be4c8060cfb7f52ce8f, type: 3}
+  - {fileID: 21300000, guid: d8d2eaf2025c9e34fbba0e0738b8c0b8, type: 3}
+  - {fileID: 21300000, guid: b9e6d24350e0d644b925671f36e6cc76, type: 3}
+  - {fileID: 21300000, guid: 2deb6a73a138e1346828953e6b61af0f, type: 3}
+  - {fileID: 21300000, guid: 730574837c7da984c9a56726a3490536, type: 3}
+  - {fileID: 21300000, guid: 7110d86426b48c44c8ca53242cf3a595, type: 3}
+  - {fileID: 21300000, guid: 140f0d75d9eeb9f479f97190c94eeb3c, type: 3}
+  - {fileID: 21300000, guid: f1679bc6960dba34daf1ae05ff4bcc55, type: 3}
+  - {fileID: 21300000, guid: 5d64edc871ea0ca4f8830c4126198e53, type: 3}
+  - {fileID: 21300000, guid: 79ed5af8fbca8154cbc9d04d0bda0492, type: 3}
+  - {fileID: 21300000, guid: fcbf9859cc9f547418dd885ed9ff5ad7, type: 3}
+  - {fileID: 21300000, guid: eb8946d95a67fa748b328138ea1260ca, type: 3}
+  - {fileID: 21300000, guid: 15c2827a335111a48b2854a98c137c35, type: 3}
+  - {fileID: 21300000, guid: be39288bfd73bf2479f64bcde1047f92, type: 3}
+  - {fileID: 21300000, guid: e871ecdbfbce45248bd5e8dbd8d91aff, type: 3}
+  - {fileID: 21300000, guid: d3500febe1db05548820a4168bf1ffc4, type: 3}
+  - {fileID: 21300000, guid: 634098ad0a20c9144884bcc0e9bdcd58, type: 3}
+  - {fileID: 21300000, guid: 86852cadda0c6764c813cb758be95a1c, type: 3}
+  - {fileID: 21300000, guid: 8902a8fde2118794fac28903827e8d96, type: 3}
+  - {fileID: 21300000, guid: 6abc300e7f918084288df777074871ce, type: 3}
+  - {fileID: 21300000, guid: 55af042e2237c31488ed134a09cda027, type: 3}
+  - {fileID: 21300000, guid: 727b969e0ea29244da37952b1a2aba04, type: 3}
+  - {fileID: 21300000, guid: 34e3d1be842d4ec4e9d7ff72804909d5, type: 3}
+  - {fileID: 21300000, guid: a2f5076fcfce5bd4d9304befdbc27ff7, type: 3}
+  - {fileID: 21300000, guid: 0f7e62df727a2c84bb1993e82df59557, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - emote_idea
+  - emote_hearts
+  - emote_drop
+  - emote_bars
+  - emote_circle
+  - emote_dots3
+  - emote_star
+  - emote__
+  - emote_question
+  - emote_alert
+  - emote_anger
+  - emote_heart
+  - emote_faceHappy
+  - emote_cross
+  - emote_exclamation
+  - emote_stars
+  - emote_faceAngry
+  - emote_heartBroken
+  - emote_faceSad
+  - emote_exclamations
+  - emote_laugh
+  - emote_dots2
+  - emote_sleeps
+  - emote_dots1
+  - emote_sleep
+  - emote_music
+  - emote_swirl
+  - emote_cloud
+  - emote_drops
+  - emote_cash
+  m_Tag: Prueba
+  m_IsVariant: 0
