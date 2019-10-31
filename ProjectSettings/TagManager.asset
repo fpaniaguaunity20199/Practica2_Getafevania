@@ -8,6 +8,7 @@ TagManager:
   - Floor
   - Adhesivo
   - PlataformaMovil
+  - Collectible
   layers:
   - Default
   - TransparentFX

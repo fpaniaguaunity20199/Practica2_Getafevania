@@ -11,6 +11,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] int puntuacion;
     private const string PARAM_X = "x";
     private const string PARAM_Y = "y";
+    public List<GameObject> items = new List<GameObject>();
+    public void AddItem(GameObject item)
+    {
+        items.Add(item);
+    }
+    public bool HasItem(string nombre)
+    {
+        foreach(GameObject item in items)
+        {
+            if (item.name == nombre)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void ResetGame()
     {
