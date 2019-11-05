@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField] PhysicsMaterial2D pm2d;
     [Header("Time to get player control after damage")]
     [SerializeField] float timeToRestoreControl;
+    [SerializeField] FixedJoystick fixedJoystick;
+
     private AudioSource[] audios;
     private float x, y;
     private Rigidbody2D rb;
@@ -23,6 +25,7 @@ public class Player : MonoBehaviour
     private const int AUDIO_JUMP = 1;
     private Vector2 posInicial;
     private bool controlEnabled = true;
+    private float controlOffset = 0.1f;//Valor a partir del cual se considera que está haciendo movimiento
 
     void Start()
     {
@@ -35,16 +38,38 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
-        if (Input.GetButtonDown("Fire1"))
+        switch (Application.platform)
         {
-            Disparar();
+            case RuntimePlatform.Android:
+                x = fixedJoystick.Horizontal;
+                y = fixedJoystick.Vertical;
+                break;
+            case RuntimePlatform.WindowsEditor:
+                x = Input.GetAxis("Horizontal");
+                y = Input.GetAxis("Vertical");
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Disparar();
+                }
+                if (Input.GetButtonDown("Fire2"))
+                {
+                    Saltar();
+                }
+                break;
+            case RuntimePlatform.WindowsPlayer:
+                x = Input.GetAxis("Horizontal");
+                y = Input.GetAxis("Vertical");
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Disparar();
+                }
+                if (Input.GetButtonDown("Fire2"))
+                {
+                    Saltar();
+                }
+                break;
         }
-        if (Input.GetButtonDown("Fire2"))
-        {
-            Saltar();
-        }
+
     }
     void FixedUpdate()
     {
@@ -53,7 +78,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        if (Mathf.Abs(x) > 0)
+        if (Mathf.Abs(x) > controlOffset)
         {
             animator.SetBool("walking", true);
             rb.velocity = new Vector2(x * speed, rb.velocity.y);
@@ -61,10 +86,10 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("walking", false);
         }
-        if (x > 0)
+        if (x > controlOffset)
         {
             transform.localScale = new Vector2(1,1);
-        } else if (x < 0)
+        } else if (x < -controlOffset)
         {
             transform.localScale = new Vector2(-1,1);
         }
@@ -79,7 +104,7 @@ public class Player : MonoBehaviour
             IniciarPosicion();
         }
     }
-    private void Disparar()
+    public void Disparar()
     {
         GameObject proyectil = Instantiate(
             prefabProyectil, 
@@ -89,7 +114,7 @@ public class Player : MonoBehaviour
         proyectil.GetComponent<Rigidbody2D>().AddForce(direction * fuerzaDisparo);
         audios[AUDIO_SHOT].Play();
     }
-    private void Saltar()
+    public void Saltar()
     {
         if (InFloor())
         {
