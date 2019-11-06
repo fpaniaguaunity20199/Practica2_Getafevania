@@ -68,6 +68,18 @@ public class Player : MonoBehaviour
                     Saltar();
                 }
                 break;
+            default:
+                x = Input.GetAxis("Horizontal");
+                y = Input.GetAxis("Vertical");
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Disparar();
+                }
+                if (Input.GetButtonDown("Fire2"))
+                {
+                    Saltar();
+                }
+                break;
         }
 
     }
